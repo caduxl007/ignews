@@ -1,4 +1,6 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -56,7 +58,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
   );
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: 'blocking'
@@ -76,13 +78,10 @@ export const getStaticProps: GetStaticProps = async ({
     slug,
     title: RichText.asText(response.data.title),
     content: RichText.asHtml(response.data.content.splice(0, 3)),
-    updatedAt: new Date(response.last_publication_date).toLocaleDateString(
-      "pt-BR",
-      {
-        day: "numeric",
-        year: "numeric",
-        month: "long",
-      }
+    updatedAt: format(
+      new Date(response.last_publication_date).getTime(),
+      "dd 'de' MMMM 'de' yyyy",
+      { locale: ptBR }
     ),
   };
 
@@ -90,5 +89,6 @@ export const getStaticProps: GetStaticProps = async ({
     props: {
       post,
     },
+    revalidate: 60 * 30, // 30 minutos
   };
 };
