@@ -1,17 +1,18 @@
-import { render, screen } from "@testing-library/react";
-import { useSession } from "next-auth/client";
-import { mocked } from "ts-jest/utils";
-import Home, { getStaticProps } from "../../pages";
-import { stripe } from "../../services/stripe";
+// import { render, screen } from "@testing-library/react";
+// import { useSession } from "next-auth/client";
+// import { mocked } from "ts-jest/utils";
+// import Home, { getStaticProps } from "../../pages";
+// import { stripe } from "../../services/stripe";
 
-jest.mock("next/router");
-jest.mock("next-auth/client", () => {
-  return {
-    useSession: () => [null, false],
-  };
-});
+// jest.mock("next/router");
+// jest.mock("next-auth/client", () => {
+//   return {
+//     useSession: () => [null, false],
+//   };
+// });
+// jest.mock('../../services/stripe');
 
-//video 2 - testando paginas
+// //video 2 - testando paginas
 
 // describe("Home page", () => {
 //   it("renders correctly", () => {
